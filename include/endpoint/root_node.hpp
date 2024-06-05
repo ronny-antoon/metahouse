@@ -31,9 +31,6 @@ namespace metahouse
                 esp_matter::cluster::administrator_commissioning::config_t administrator_commissioning;
                 esp_matter::cluster::operational_credentials::config_t operational_credentials;
                 esp_matter::cluster::diagnostics_network_wifi::config_t diagnostics_network_wifi;
-                esp_matter::cluster::diagnostics_network_thread::config_t diagnostics_network_thread;
-                // esp_matter::cluster::diagnostics_network_ethernet::config_t diagnostics_network_ethernet;
-                esp_matter::cluster::icd_management::config_t icd_management;
             } config_t;
 
             /** create
