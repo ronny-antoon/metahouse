@@ -1,4 +1,4 @@
-#include "endpoint/on_off_light.hpp"
+#include "endpoint/fan.hpp"
 #include "endpoint/bridge_node.hpp"
 #include "cluster/bridged_device_basic_information.hpp"
 
@@ -8,7 +8,7 @@
 #include <esp_matter_command.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::on_off_light
+namespace metahouse::endpoint::fan
 {
     esp_matter::endpoint_t *create(esp_matter::node_t *node, config_t *config, esp_matter::endpoint_t *aggregator,
                                    void *priv_data)
@@ -52,11 +52,10 @@ namespace metahouse::endpoint::on_off_light
             endpoint, &(config->scenes_management), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
         ON_NULL_PRINT_RETURN(scenes_cluster, nullptr, "Failed to create the scenes cluster");
 
-        esp_matter::cluster_t *on_off_cluster =
-            esp_matter::cluster::on_off::create(endpoint, &(config->on_off), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER,
-                                                esp_matter::cluster::on_off::feature::lighting::get_id());
-        ON_NULL_PRINT_RETURN(on_off_cluster, nullptr, "Failed to create the on/off cluster");
+        esp_matter::cluster_t *fan_control_cluster = esp_matter::cluster::fan_control::create(
+            endpoint, &(config->fan_control), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
+        ON_NULL_PRINT_RETURN(fan_control_cluster, nullptr, "Failed to create the fan control cluster");
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::on_off_light
+} // namespace metahouse::endpoint::fan

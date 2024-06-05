@@ -1,4 +1,4 @@
-#include "endpoint/on_off_light.hpp"
+#include "endpoint/window_covering.hpp"
 #include "endpoint/bridge_node.hpp"
 #include "cluster/bridged_device_basic_information.hpp"
 
@@ -8,7 +8,7 @@
 #include <esp_matter_command.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::on_off_light
+namespace metahouse::endpoint::window_covering
 {
     esp_matter::endpoint_t *create(esp_matter::node_t *node, config_t *config, esp_matter::endpoint_t *aggregator,
                                    void *priv_data)
@@ -52,11 +52,33 @@ namespace metahouse::endpoint::on_off_light
             endpoint, &(config->scenes_management), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
         ON_NULL_PRINT_RETURN(scenes_cluster, nullptr, "Failed to create the scenes cluster");
 
-        esp_matter::cluster_t *on_off_cluster =
-            esp_matter::cluster::on_off::create(endpoint, &(config->on_off), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER,
-                                                esp_matter::cluster::on_off::feature::lighting::get_id());
-        ON_NULL_PRINT_RETURN(on_off_cluster, nullptr, "Failed to create the on/off cluster");
+        esp_matter::cluster_t *window_covering_cluster = esp_matter::cluster::window_covering::create(
+            endpoint, &(config->window_covering), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER,
+            ESP_MATTER_NONE_FEATURE_ID);
+        ON_NULL_PRINT_RETURN(window_covering_cluster, nullptr, "Failed to create the window covering cluster");
+
+        // Add the lift feature to the window covering cluster
+        esp_matter::cluster::window_covering::feature::lift::config_t lift_config;
+        err = esp_matter::cluster::window_covering::feature::lift::add(window_covering_cluster, &lift_config);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the lift feature");
+
+        // Add the position aware lift feature to the window covering cluster
+        esp_matter::cluster::window_covering::feature::position_aware_lift::config_t position_aware_lift_config;
+        nullable<uint8_t> percentage = nullable<uint8_t>(0);
+        nullable<uint16_t> percentage_100ths = nullable<uint16_t>(0);
+        position_aware_lift_config.current_position_lift_percentage = percentage;
+        position_aware_lift_config.target_position_lift_percent_100ths = percentage_100ths;
+        position_aware_lift_config.current_position_lift_percent_100ths = percentage_100ths;
+        err = esp_matter::cluster::window_covering::feature::position_aware_lift::add(window_covering_cluster,
+                                                                                      &position_aware_lift_config);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the position aware lift feature");
+
+        // Add the absolute position feature to the window covering cluster
+        esp_matter::cluster::window_covering::feature::absolute_position::config_t absolute_position_config;
+        err = esp_matter::cluster::window_covering::feature::absolute_position::add(window_covering_cluster,
+                                                                                    &absolute_position_config);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the absolute position feature");
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::on_off_light
+} // namespace metahouse::endpoint::window_covering

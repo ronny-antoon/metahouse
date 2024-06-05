@@ -1,4 +1,4 @@
-#include "endpoint/on_off_light.hpp"
+#include "endpoint/generic_switch.hpp"
 #include "endpoint/bridge_node.hpp"
 #include "cluster/bridged_device_basic_information.hpp"
 
@@ -8,7 +8,7 @@
 #include <esp_matter_command.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::on_off_light
+namespace metahouse::endpoint::generic_switch
 {
     esp_matter::endpoint_t *create(esp_matter::node_t *node, config_t *config, esp_matter::endpoint_t *aggregator,
                                    void *priv_data)
@@ -44,19 +44,25 @@ namespace metahouse::endpoint::on_off_light
             esp_matter::cluster::identify::command::create_trigger_effect(identify_cluster);
         ON_NULL_PRINT_RETURN(trigger_effect_command, nullptr, "Failed to create the trigger effect command");
 
-        esp_matter::cluster_t *groups_cluster = esp_matter::cluster::groups::create(
-            endpoint, &(config->groups), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
-        ON_NULL_PRINT_RETURN(groups_cluster, nullptr, "Failed to create the groups cluster");
+        esp_matter::cluster_t *switch_cluster = esp_matter::cluster::switch_cluster::create(
+            endpoint, &(config->switch_cluster), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
+        ON_NULL_PRINT_RETURN(switch_cluster, nullptr, "Failed to create the switch cluster");
 
-        esp_matter::cluster_t *scenes_cluster = esp_matter::cluster::scenes_management::create(
-            endpoint, &(config->scenes_management), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
-        ON_NULL_PRINT_RETURN(scenes_cluster, nullptr, "Failed to create the scenes cluster");
+        // Add Single press features to the switch cluster
+        err = esp_matter::cluster::switch_cluster::feature::momentary_switch::add(switch_cluster);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the momentary switch feature");
+        err = esp_matter::cluster::switch_cluster::feature::momentary_switch_release::add(switch_cluster);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the momentary switch release feature");
 
-        esp_matter::cluster_t *on_off_cluster =
-            esp_matter::cluster::on_off::create(endpoint, &(config->on_off), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER,
-                                                esp_matter::cluster::on_off::feature::lighting::get_id());
-        ON_NULL_PRINT_RETURN(on_off_cluster, nullptr, "Failed to create the on/off cluster");
+        // Add Long press features to the switch cluster
+        err = esp_matter::cluster::switch_cluster::feature::momentary_switch_long_press::add(switch_cluster);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the momentary switch long press feature");
+
+        // Add Multi press features to the switch cluster(Double press)
+        esp_matter::cluster::switch_cluster::feature::momentary_switch_multi_press::config_t doublepress;
+        err = esp_matter::cluster::switch_cluster::feature::momentary_switch_multi_press::add(switch_cluster, &doublepress);
+        ON_ERR_PRINT_RETURN(err, nullptr, "Failed to add the momentary switch multi press feature");
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::on_off_light
+} // namespace metahouse::endpoint::generic_switch

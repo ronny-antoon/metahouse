@@ -1,4 +1,4 @@
-#include "endpoint/on_off_light.hpp"
+#include "endpoint/on_off_plugin.hpp"
 #include "endpoint/bridge_node.hpp"
 #include "cluster/bridged_device_basic_information.hpp"
 
@@ -8,7 +8,7 @@
 #include <esp_matter_command.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::on_off_light
+namespace metahouse::endpoint::on_off_plugin
 {
     esp_matter::endpoint_t *create(esp_matter::node_t *node, config_t *config, esp_matter::endpoint_t *aggregator,
                                    void *priv_data)
@@ -59,4 +59,4 @@ namespace metahouse::endpoint::on_off_light
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::on_off_light
+} // namespace metahouse::endpoint::on_off_plugin
