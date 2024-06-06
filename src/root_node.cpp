@@ -4,7 +4,7 @@
 #include <esp_matter.h>
 #include <on_error.hpp>
 
-namespace metahouse
+namespace mh_matter
 {
     namespace endpoint
     {
@@ -67,4 +67,4 @@ namespace metahouse
             }
         } // namespace root_node
     } // namespace endpoint
-} // namespace metahouse
+} // namespace mh_matter

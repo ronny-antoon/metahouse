@@ -4,7 +4,7 @@
 #include <esp_matter_core.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::bridge_node
+namespace mh_matter::endpoint::bridge_node
 {
 
     esp_matter::endpoint_t *create_bridged_endpoint(esp_matter::node_t *node, esp_matter::endpoint_t *aggregator,
@@ -26,4 +26,4 @@ namespace metahouse::endpoint::bridge_node
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::bridge_node
+} // namespace mh_matter::endpoint::bridge_node

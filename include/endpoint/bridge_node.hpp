@@ -5,7 +5,7 @@
 #include <esp_matter_endpoint.h>
 
 // Main namespace for the project
-namespace metahouse
+namespace mh_matter
 {
     // Namespace for application endpoints
     namespace endpoint
@@ -29,5 +29,5 @@ namespace metahouse
 
         } // namespace bridge_node
     } // namespace endpoint
-} // namespace metahouse
+} // namespace mh_matter
 #endif // BRIDGE_NODE_HPP

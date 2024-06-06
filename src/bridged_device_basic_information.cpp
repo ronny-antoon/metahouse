@@ -6,7 +6,7 @@
 #include <esp_matter_attribute.h>
 #include <esp_matter.h>
 
-namespace metahouse::cluster::bridged_device_basic_information
+namespace mh_matter::cluster::bridged_device_basic_information
 {
 
     esp_matter::cluster_t *create(esp_matter::endpoint_t *endpoint, config_t *config, esp_matter::cluster_flags_t flags)
@@ -23,4 +23,4 @@ namespace metahouse::cluster::bridged_device_basic_information
         return bridged_device_basic_information_cluster;
     }
 
-} // namespace metahouse::clusters::bridged_device_basic_information
+} // namespace mh_matter::clusters::bridged_device_basic_information

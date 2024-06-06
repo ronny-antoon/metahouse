@@ -8,7 +8,7 @@
 #include <esp_matter_command.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::window_covering
+namespace mh_matter::endpoint::window_covering
 {
     esp_matter::endpoint_t *create(esp_matter::node_t *node, config_t *config, esp_matter::endpoint_t *aggregator,
                                    void *priv_data)
@@ -18,10 +18,10 @@ namespace metahouse::endpoint::window_covering
         // If the aggregator is not null, create a bridged endpoint
         if (aggregator != nullptr)
         {
-            endpoint = metahouse::endpoint::bridge_node::create_bridged_endpoint(node, aggregator, priv_data);
+            endpoint = mh_matter::endpoint::bridge_node::create_bridged_endpoint(node, aggregator, priv_data);
             ON_NULL_PRINT_RETURN(endpoint, nullptr, "Failed to create the bridged endpoint");
 
-            metahouse::cluster::bridged_device_basic_information::create(
+            mh_matter::cluster::bridged_device_basic_information::create(
                 endpoint, &(config->bridged_device_basic_information), esp_matter::cluster_flags::CLUSTER_FLAG_SERVER);
         }
         else
@@ -81,4 +81,4 @@ namespace metahouse::endpoint::window_covering
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::window_covering
+} // namespace mh_matter::endpoint::window_covering

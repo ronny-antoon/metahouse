@@ -6,7 +6,7 @@
 #include <esp_matter_core.h>
 
 // Main namespace for the project
-namespace metahouse
+namespace mh_matter
 {
     // Namespace for application endpoints
     namespace endpoint
@@ -35,6 +35,6 @@ namespace metahouse
 
         } // namespace aggregator
     } // namespace endpoint
-} // namespace metahouse
+} // namespace mh_matter
 
 #endif // AGGREGATOR_HPP

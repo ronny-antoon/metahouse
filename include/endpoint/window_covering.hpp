@@ -8,7 +8,7 @@
 #include <esp_matter_core.h>
 
 // Main namespace for the project
-namespace metahouse
+namespace mh_matter
 {
     // Namespace for application endpoints
     namespace endpoint
@@ -22,7 +22,7 @@ namespace metahouse
             // Configuration structure for the window covering
             typedef struct config
             {
-                metahouse::cluster::bridged_device_basic_information::config_t
+                mh_matter::cluster::bridged_device_basic_information::config_t
                     bridged_device_basic_information; // used only if the device is a bridged device
                 esp_matter::cluster::descriptor::config_t descriptor;
                 esp_matter::cluster::identify::config_t identify;
@@ -48,6 +48,6 @@ namespace metahouse
 
         } // namespace window_covering
     } // namespace endpoint
-} // namespace metahouse
+} // namespace mh_matter
 
 #endif // WINDOW_COVERING_HPP

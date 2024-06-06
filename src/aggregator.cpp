@@ -5,7 +5,7 @@
 #include <esp_matter_cluster.h>
 #include <esp_matter.h>
 
-namespace metahouse::endpoint::aggregator
+namespace mh_matter::endpoint::aggregator
 {
     esp_matter::endpoint_t *create(esp_matter::node_t *node, config_t *config)
     {
@@ -24,4 +24,4 @@ namespace metahouse::endpoint::aggregator
 
         return endpoint;
     }
-} // namespace metahouse::endpoint::aggregator
+} // namespace mh_matter::endpoint::aggregator

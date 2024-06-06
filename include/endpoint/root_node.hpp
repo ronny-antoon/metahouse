@@ -7,7 +7,7 @@
 #include <esp_matter_core.h>
 
 // Main namespace for the project
-namespace metahouse
+namespace mh_matter
 {
     // Namespace for application endpoints
     namespace endpoint
@@ -45,6 +45,6 @@ namespace metahouse
             esp_matter::node_t *create(config_t *config);
         } // namespace root_node
     } // namespace endpoint
-} // namespace metahouse
+} // namespace mh_matter
 
 #endif // ROOT_NODE_HPP
