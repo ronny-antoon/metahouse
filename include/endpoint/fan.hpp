@@ -16,8 +16,16 @@ namespace mh_matter
         // Namespace for the fan endpoint
         namespace fan
         {
-            const uint32_t DEVICE_TYPE_ID = ESP_MATTER_FAN_DEVICE_TYPE_ID;          // Fan device type ID
-            const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_FAN_DEVICE_TYPE_VERSION; // Fan device type version
+            constexpr static const uint32_t DEVICE_TYPE_ID = ESP_MATTER_FAN_DEVICE_TYPE_ID;          // Fan device type ID
+            constexpr static const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_FAN_DEVICE_TYPE_VERSION; // Fan device type version
+            constexpr static const uint32_t _CLUSTER_ID = chip::app::Clusters::FanControl::Id;       // Fan cluster ID
+
+            // Updateable attributes for the fan
+            constexpr static const uint32_t _ATTRIBUTE_PERCENT_SETTING_ID =
+                chip::app::Clusters::FanControl::Attributes::PercentSetting::Id;
+            constexpr static const uint32_t _ATTRIBUTE_PERCENT_CURRENT_ID =
+                chip::app::Clusters::FanControl::Attributes::PercentCurrent::Id;
+            constexpr static const uint32_t _ATTRIBUTE_FAN_MODE_ID = chip::app::Clusters::FanControl::Attributes::FanMode::Id;
 
             // Configuration structure for the fan
             typedef struct config

@@ -16,8 +16,12 @@ namespace mh_matter
         // Namespace for the generic switch endpoint
         namespace generic_switch
         {
-            const uint32_t DEVICE_TYPE_ID = ESP_MATTER_GENERIC_SWITCH_DEVICE_TYPE_ID;          // Generic switch device type ID
-            const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_GENERIC_SWITCH_DEVICE_TYPE_VERSION; // Generic switch device type version
+            constexpr static const uint32_t DEVICE_TYPE_ID = ESP_MATTER_GENERIC_SWITCH_DEVICE_TYPE_ID;          // Generic switch device type ID
+            constexpr static const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_GENERIC_SWITCH_DEVICE_TYPE_VERSION; // Generic switch device type version
+            constexpr static const uint32_t _CLUSTER_ID = chip::app::Clusters::Switch::Id;
+
+            // Updateable attributes for the generic switch
+            constexpr static const uint32_t _ATTRIBUTE_ID = chip::app::Clusters::Switch::Attributes::CurrentPosition::Id;
 
             // Configuration structure for the generic switch
             typedef struct config

@@ -16,8 +16,12 @@ namespace mh_matter
         // Namespace for the on/off light endpoint
         namespace on_off_light
         {
-            const uint32_t DEVICE_TYPE_ID = ESP_MATTER_ON_OFF_LIGHT_DEVICE_TYPE_ID;          // On/off light device type ID
-            const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_ON_OFF_LIGHT_DEVICE_TYPE_VERSION; // On/off light device type version
+            constexpr static const uint32_t DEVICE_TYPE_ID = ESP_MATTER_ON_OFF_LIGHT_DEVICE_TYPE_ID;          // On/off light device type ID
+            constexpr static const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_ON_OFF_LIGHT_DEVICE_TYPE_VERSION; // On/off light device type version
+            constexpr static const uint32_t _CLUSTER_ID = chip::app::Clusters::OnOff::Id;
+
+            // Updateable attributes for the on/off light
+            constexpr static const uint32_t _ATTRIBUTE_ID = chip::app::Clusters::OnOff::Attributes::OnOff::Id;
 
             // Configuration structure for the on/off light
             typedef struct config

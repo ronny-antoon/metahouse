@@ -16,8 +16,15 @@ namespace mh_matter
         // Namespace for the window covering
         namespace window_covering
         {
-            const uint32_t DEVICE_TYPE_ID = ESP_MATTER_WINDOW_COVERING_DEVICE_TYPE_ID;          // Window covering device type ID
-            const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_WINDOW_COVERING_DEVICE_TYPE_VERSION; // Window covering device type version
+            constexpr static const uint32_t DEVICE_TYPE_ID = ESP_MATTER_WINDOW_COVERING_DEVICE_TYPE_ID;          // Window covering device type ID
+            constexpr static const uint8_t DEVICE_TYPE_VERSION = ESP_MATTER_WINDOW_COVERING_DEVICE_TYPE_VERSION; // Window covering device type version
+            constexpr static const uint32_t _CLUSTER_ID = chip::app::Clusters::WindowCovering::Id;               // Window covering cluster ID
+
+            // Updateable attributes for the window covering
+            constexpr static const uint32_t _ATTRIBUTE_TARGET_ID =
+                chip::app::Clusters::WindowCovering::Attributes::TargetPositionLiftPercent100ths::Id;
+            constexpr static const uint32_t _ATTRIBUTE_CURRENT_ID =
+                chip::app::Clusters::WindowCovering::Attributes::CurrentPositionLiftPercent100ths::Id;
 
             // Configuration structure for the window covering
             typedef struct config
